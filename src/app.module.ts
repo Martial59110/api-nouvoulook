@@ -1,15 +1,26 @@
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './users/users.module';
+import { PartnersModule } from './partners/partners.module';
+import { NewsModule } from './news/news.module';
+import { TextDonationsModule } from './text-donations/text-donations.module';
+import { TextVolunteersModule } from './text-volunteers/text-volunteers.module';
+import { ClothingExamplesModule } from './clothing-examples/clothing-examples.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PrismaModule } from './prisma/prisma.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     LoggerModule.forRoot({
       pinoHttp: {
         transport: {
@@ -27,6 +38,13 @@ import { PrismaModule } from './prisma/prisma.module';
       limit: 10,
     }]),
     PrismaModule,
+    UsersModule,
+    AuthModule,
+    PartnersModule,
+    NewsModule,
+    TextDonationsModule,
+    TextVolunteersModule,
+    ClothingExamplesModule,
   ],
   controllers: [AppController],
   providers: [
