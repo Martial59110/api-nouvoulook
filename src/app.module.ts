@@ -8,6 +8,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { TextDonationsModule } from './text-donations/text-donations.module';
+import { NewsModule } from './news/news.module';
+import { PartnersModule } from './partners/partners.module';
+import { ClothingExamplesModule } from './clothing-examples/clothing-examples.module';
 
 @Module({
   imports: [
@@ -29,6 +32,9 @@ import { TextDonationsModule } from './text-donations/text-donations.module';
     }]),
     PrismaModule,
     TextDonationsModule,
+    NewsModule,
+    PartnersModule,
+    ClothingExamplesModule,
   ],
   controllers: [AppController],
   providers: [
