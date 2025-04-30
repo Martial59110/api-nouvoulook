@@ -14,12 +14,15 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { User } from './entities/user.entity';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../auth/enums/role.enum';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @Roles(Role.ADMIN)
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
@@ -44,6 +47,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
+  @Roles(Role.ADMIN)
   update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -53,6 +57,7 @@ export class UsersController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @Roles(Role.ADMIN)
   remove(@Param('id') id: string): Promise<User> {
     return this.usersService.remove(id);
   }

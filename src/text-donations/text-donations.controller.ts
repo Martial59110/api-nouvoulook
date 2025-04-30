@@ -5,14 +5,14 @@ import { UpdateTextDonationDto } from './dto/update-text-donation.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Roles } from '../decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
-
+import { Role } from '../auth/enums/role.enum';
 @Controller('text-donations')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class TextDonationsController {
   constructor(private readonly textDonationsService: TextDonationsService) {}
 
   @Post()
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   create(@Body() createTextDonationDto: CreateTextDonationDto, @Req() req) {
     return this.textDonationsService.create(createTextDonationDto, req.user.id);
   }
@@ -28,13 +28,13 @@ export class TextDonationsController {
   }
 
   @Patch(':id')
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateTextDonationDto: UpdateTextDonationDto) {
     return this.textDonationsService.update(id, updateTextDonationDto);
   }
 
   @Delete(':id')
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.textDonationsService.remove(id);
   }

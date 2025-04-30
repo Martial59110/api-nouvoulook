@@ -4,6 +4,8 @@ import { CreateTextVolunteerDto } from './dto/create-text-volunteer.dto';
 import { UpdateTextVolunteerDto } from './dto/update-text-volunteer.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { TextVolunteer } from './entities/text-volunteer.entity';
+import { Roles } from '../decorators/roles.decorator';
+import { Role } from '../auth/enums/role.enum';
 
 @Controller('text-volunteers')
 @UseGuards(JwtAuthGuard)
@@ -11,6 +13,7 @@ export class TextVolunteersController {
   constructor(private readonly textVolunteersService: TextVolunteersService) {}
 
   @Post()
+  @Roles(Role.ADMIN)
   create(
     @Body() createTextVolunteerDto: CreateTextVolunteerDto,
     @Request() req,
@@ -29,6 +32,7 @@ export class TextVolunteersController {
   }
 
   @Patch(':id')
+  @Roles(Role.ADMIN)
   update(
     @Param('id') id: string,
     @Body() updateTextVolunteerDto: UpdateTextVolunteerDto,
@@ -37,6 +41,7 @@ export class TextVolunteersController {
   }
 
   @Delete(':id')
+  @Roles(Role.ADMIN)
   remove(@Param('id') id: string): Promise<TextVolunteer> {
     return this.textVolunteersService.remove(id);
   }

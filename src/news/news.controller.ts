@@ -5,14 +5,14 @@ import { UpdateNewsDto } from './dto/update-news.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Roles } from '../decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
-
+import { Role } from '../auth/enums/role.enum';
 @Controller('news')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class NewsController {
   constructor(private readonly newsService: NewsService) {}
 
   @Post()
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   create(@Body() createNewsDto: CreateNewsDto, @Req() req) {
     return this.newsService.create(createNewsDto, req.user.id);
   }
@@ -28,13 +28,13 @@ export class NewsController {
   }
 
   @Patch(':id')
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateNewsDto: UpdateNewsDto) {
     return this.newsService.update(id, updateNewsDto);
   }
 
   @Delete(':id')
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.newsService.remove(id);
   }

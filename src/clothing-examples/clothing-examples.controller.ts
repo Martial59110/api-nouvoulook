@@ -5,14 +5,14 @@ import { UpdateClothingExampleDto } from './dto/update-clothing-example.dto';
 import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Roles } from '../decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
-
+import { Role } from '../auth/enums/role.enum';
 @Controller('clothing-examples')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ClothingExamplesController {
   constructor(private readonly clothingExamplesService: ClothingExamplesService) {}
 
   @Post()
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   create(@Body() createClothingExampleDto: CreateClothingExampleDto, @Req() req) {
     return this.clothingExamplesService.create(createClothingExampleDto, req.user.id);
   }
@@ -28,13 +28,13 @@ export class ClothingExamplesController {
   }
 
   @Patch(':id')
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   update(@Param('id') id: string, @Body() updateClothingExampleDto: UpdateClothingExampleDto) {
     return this.clothingExamplesService.update(id, updateClothingExampleDto);
   }
 
   @Delete(':id')
-  @Roles('admin')
+  @Roles(Role.ADMIN)
   remove(@Param('id') id: string) {
     return this.clothingExamplesService.remove(id);
   }
