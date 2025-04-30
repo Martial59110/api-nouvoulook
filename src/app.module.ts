@@ -13,9 +13,14 @@ import { ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     LoggerModule.forRoot({
       pinoHttp: {
         transport: {
@@ -34,6 +39,7 @@ import { RolesGuard } from './guards/roles.guard';
     }]),
     PrismaModule,
     UsersModule,
+    AuthModule,
     PartnersModule,
     NewsModule,
     TextDonationsModule,
