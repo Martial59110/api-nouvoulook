@@ -5,6 +5,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
 import { PinoLogger } from 'nestjs-pino';
 import * as bcrypt from 'bcrypt';
+import { Role } from '../auth/enums/role.enum';
 
 @Injectable()
 export class UsersService {
@@ -35,6 +36,7 @@ export class UsersService {
       data: {
         ...createUserDto,
         password: hashedPassword,
+        roles: [Role.ADMIN],
       },
     });
 
@@ -83,6 +85,9 @@ export class UsersService {
     this.logger.info('Fetching user by email');
     return this.prisma.user.findUnique({
       where: { email },
+      include: {
+        roles: true,
+      },
     });
   }
 
