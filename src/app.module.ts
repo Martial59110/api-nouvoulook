@@ -7,9 +7,6 @@ import { RolesGuard } from './guards/roles.guard';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
-import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
-import { TextDonationsModule } from './text-donations/text-donations.module';
 
 @Module({
   imports: [
@@ -30,9 +27,6 @@ import { TextDonationsModule } from './text-donations/text-donations.module';
       limit: 10,
     }]),
     PrismaModule,
-    AuthModule,
-    UsersModule,
-    TextDonationsModule,
   ],
   controllers: [AppController],
   providers: [
