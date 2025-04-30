@@ -9,5 +9,11 @@ export class ClothingExample {
   createdAt: Date;
   updatedAt: Date;
   userId: string;
-  user?: User;
+  user?: {
+    id: string;
+    email: string;
+    firstname: string | null;
+    lastname: string | null;
+    roles: string[];
+  };
 } 

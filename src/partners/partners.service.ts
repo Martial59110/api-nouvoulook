@@ -21,6 +21,9 @@ export class PartnersService {
         ...createPartnerDto,
         userId,
       },
+      include: {
+        user: true,
+      },
     });
     this.logger.info('Partner created successfully', { id: partner.id });
     return partner;

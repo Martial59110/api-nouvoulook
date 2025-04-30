@@ -21,6 +21,9 @@ export class NewsService {
         ...createNewsDto,
         userId,
       },
+      include: {
+        user: true,
+      },
     });
     this.logger.info('News created successfully', { id: news.id });
     return news;
@@ -28,13 +31,13 @@ export class NewsService {
 
   async findAll(): Promise<News[]> {
     this.logger.info('Fetching all news');
-    const allNews = await this.prisma.news.findMany({
+    const news = await this.prisma.news.findMany({
       include: {
         user: true,
       },
     });
-    this.logger.info(`Found ${allNews.length} news items`);
-    return allNews;
+    this.logger.info(`Found ${news.length} news`);
+    return news;
   }
 
   async findOne(id: string): Promise<News> {

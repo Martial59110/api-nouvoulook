@@ -21,6 +21,9 @@ export class TextDonationsService {
         ...createTextDonationDto,
         userId,
       },
+      include: {
+        user: true,
+      },
     });
     this.logger.info('Text donation created successfully', { id: donation.id });
     return donation;
@@ -39,20 +42,20 @@ export class TextDonationsService {
 
   async findOne(id: string): Promise<TextDonation> {
     this.logger.info('Fetching text donation by id', { id });
-    const textDonation = await this.prisma.textDonation.findUnique({
+    const donation = await this.prisma.textDonation.findUnique({
       where: { id },
       include: {
         user: true,
       },
     });
 
-    if (!textDonation) {
+    if (!donation) {
       this.logger.warn('Text donation not found', { id });
       throw new NotFoundException(`Text donation with ID ${id} not found`);
     }
 
     this.logger.info('Text donation found successfully', { id });
-    return textDonation;
+    return donation;
   }
 
   async update(id: string, updateTextDonationDto: UpdateTextDonationDto): Promise<TextDonation> {

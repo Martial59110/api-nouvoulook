@@ -9,16 +9,16 @@ export class User {
   id: string;
   email: string;
   password: string;
-  firstname?: string;
-  lastname?: string;
-  roles: Role[];
+  firstname: string | null;
+  lastname: string | null;
+  roles: string[];
   createdAt: Date;
   updatedAt: Date;
   
   // Relations
-  partner?: Partner;
+  partner?: Partner | null;
   news?: News[];
   textDonations?: TextDonation[];
-  textVolunteer?: TextVolunteer;
+  textVolunteer?: TextVolunteer | null;
   clothingExamples?: ClothingExample[];
 } 

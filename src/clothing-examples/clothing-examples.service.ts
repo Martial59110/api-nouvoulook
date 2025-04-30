@@ -21,6 +21,9 @@ export class ClothingExamplesService {
         ...createClothingExampleDto,
         userId,
       },
+      include: {
+        user: true,
+      },
     });
     this.logger.info('Clothing example created successfully', { id: example.id });
     return example;

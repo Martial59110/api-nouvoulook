@@ -36,7 +36,14 @@ export class UsersService {
       data: {
         ...createUserDto,
         password: hashedPassword,
-        roles: [Role.ADMIN],
+        roles: [Role.USER],
+      },
+      include: {
+        partner: true,
+        news: true,
+        textDonations: true,
+        textVolunteer: true,
+        clothingExamples: true,
       },
     });
 
@@ -82,17 +89,22 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    this.logger.info('Fetching user by email');
-    return this.prisma.user.findUnique({
+    this.logger.info('Fetching user by email', { email });
+    const user = await this.prisma.user.findUnique({
       where: { email },
       include: {
-        roles: true,
+        partner: true,
+        news: true,
+        textDonations: true,
+        textVolunteer: true,
+        clothingExamples: true,
       },
     });
+    return user;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
-    this.logger.info('Updating user', { id });
+    this.logger.info('Updating user', { id, ...updateUserDto });
     await this.findOne(id);
 
     // If password is being updated, hash it
