@@ -20,6 +20,7 @@ model User {
   password      String
   firstname     String?
   lastname      String?
+  roles         String[]        @default(["user"]) @map("roles")
   createdAt     DateTime        @default(now()) @map("created_at")
   updatedAt     DateTime        @updatedAt @map("updated_at")
   partner       Partner?        // Relation one-to-one
