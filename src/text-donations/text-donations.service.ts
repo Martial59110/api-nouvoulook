@@ -3,14 +3,16 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateTextDonationDto } from './dto/create-text-donation.dto';
 import { UpdateTextDonationDto } from './dto/update-text-donation.dto';
 import { TextDonation } from './entities/text-donation.entity';
-import { Logger } from 'nestjs-pino';
+import { PinoLogger } from 'nestjs-pino';
 
 @Injectable()
 export class TextDonationsService {
   constructor(
     private prisma: PrismaService,
-    private readonly logger: Logger
-  ) {}
+    private readonly logger: PinoLogger
+  ) {
+    logger.setContext('TextDonationsService');
+  }
 
   async create(createTextDonationDto: CreateTextDonationDto, userId: string): Promise<TextDonation> {
     this.logger.info('Creating new text donation', { userId, ...createTextDonationDto });
