@@ -1,16 +1,18 @@
 import { Module } from '@nestjs/common';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { UsersModule } from './users/users.module';
+import { PartnersModule } from './partners/partners.module';
+import { NewsModule } from './news/news.module';
+import { TextDonationsModule } from './text-donations/text-donations.module';
+import { TextVolunteersModule } from './text-volunteers/text-volunteers.module';
+import { ClothingExamplesModule } from './clothing-examples/clothing-examples.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { PrismaModule } from './prisma/prisma.module';
-import { TextDonationsModule } from './text-donations/text-donations.module';
-import { NewsModule } from './news/news.module';
-import { PartnersModule } from './partners/partners.module';
-import { ClothingExamplesModule } from './clothing-examples/clothing-examples.module';
 
 @Module({
   imports: [
@@ -31,9 +33,11 @@ import { ClothingExamplesModule } from './clothing-examples/clothing-examples.mo
       limit: 10,
     }]),
     PrismaModule,
-    TextDonationsModule,
-    NewsModule,
+    UsersModule,
     PartnersModule,
+    NewsModule,
+    TextDonationsModule,
+    TextVolunteersModule,
     ClothingExamplesModule,
   ],
   controllers: [AppController],
