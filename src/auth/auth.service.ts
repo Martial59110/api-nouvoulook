@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { PinoLogger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
@@ -103,5 +104,38 @@ export class AuthService {
     // ou le supprimer d'une base de données de tokens actifs
     this.logger.info('User logged out');
     return { message: 'Logged out successfully' };
+  }
+
+  async register(registerDto: RegisterDto) {
+    this.logger.info('Registering new user');
+    const user = await this.usersService.create(registerDto);
+    const payload = { 
+      email: user.email, 
+      sub: user.id,
+      roles: user.roles 
+    };
+
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+        expiresIn: '15m',
+      }),
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+        expiresIn: '7d',
+      }),
+    ]);
+
+    return {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        roles: user.roles,
+      },
+    };
   }
 } 
