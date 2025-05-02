@@ -1,98 +1,184 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Documentation API Nouvoulook
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Prérequis
+- Node.js installé
+- Base de données PostgreSQL opérationnelle
+- Dépendances installées (`npm install`)
+- Lancer les migrations Prisma :
+  ```bash
+  npx prisma migrate dev --name init
+  ```
+- Lancer l'application :
+  ```bash
+  npm run start:dev
+  ```
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 1. Créer un utilisateur (Inscription)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
+**Endpoint :**
+```
+POST /auth/register
 ```
 
-## Compile and run the project
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+**Body JSON :**
+```json
+{
+  "email": "admin@test.com",
+  "password": "password123",
+  "firstname": "Admin",
+  "lastname": "Test"
+}
 ```
 
-## Run tests
+**Headers :**
+- Content-Type: application/json
 
-```bash
-# unit tests
-$ npm run test
+**Réponse attendue :**
+- 201 Created
+- Un objet contenant un `access_token`, un `refresh_token` et les infos utilisateur
 
-# e2e tests
-$ npm run test:e2e
+---
 
-# test coverage
-$ npm run test:cov
+## 2. Se connecter (Login)
+
+**Endpoint :**
+```
+POST /auth/login
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+**Body JSON :**
+```json
+{
+  "email": "admin@test.com",
+  "password": "password123"
+}
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+**Headers :**
+- Content-Type: application/json
 
-## Resources
+**Réponse attendue :**
+- 200 OK
+- Un objet contenant un `access_token`, un `refresh_token` et les infos utilisateur
 
-Check out a few resources that may come in handy when working with NestJS:
+---
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## 3. Utiliser le token pour accéder aux routes protégées
 
-## Support
+Pour toutes les routes protégées, ajoutez l'en-tête suivant :
+```
+Authorization: Bearer <votre_access_token>
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Exemple dans Postman/Thunder Client :
+- Onglet Headers :
+  - Key : Authorization
+  - Value : Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 4. Créer un partenaire
 
-## License
+**Endpoint :**
+```
+POST /partners
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Headers :**
+- Content-Type: application/json
+- Authorization: Bearer <votre_access_token>
+
+**Body JSON :**
+```json
+{
+  "name": "Nom du partenaire",
+  "imageUrl": "https://exemple.com/image.jpg"
+}
+```
+
+**Réponse attendue :**
+- 201 Created
+- Objet du partenaire créé
+
+---
+
+## 5. Lister les partenaires
+
+**Endpoint :**
+```
+GET /partners
+```
+
+**Headers :**
+- Authorization: Bearer <votre_access_token>
+
+**Réponse attendue :**
+- 200 OK
+- Tableau de partenaires
+
+---
+
+## 6. Rafraîchir le token
+
+**Endpoint :**
+```
+POST /auth/refresh
+```
+
+**Body JSON :**
+```json
+{
+  "refresh_token": "<votre_refresh_token>"
+}
+```
+
+**Réponse attendue :**
+- 200 OK
+- Nouvel access_token
+
+---
+
+## 7. Exemples de commandes curl
+
+**Inscription :**
+```bash
+curl -X POST http://localhost:3001/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@test.com","password":"password123","firstname":"Admin","lastname":"Test"}'
+```
+
+**Connexion :**
+```bash
+curl -X POST http://localhost:3001/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{"email":"admin@test.com","password":"password123"}'
+```
+
+**Créer un partenaire :**
+```bash
+curl -X POST http://localhost:3001/partners \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer <votre_access_token>" \
+  -d '{"name":"Mon Partenaire","imageUrl":"https://exemple.com/image.jpg"}'
+```
+
+---
+
+## 8. Conseils
+- Utilisez toujours le préfixe `Bearer` dans l'en-tête Authorization.
+- Si vous obtenez une erreur 401 ou 403, vérifiez que votre token est bien celui d'un utilisateur admin.
+- Pour toute erreur 400, vérifiez les champs obligatoires dans le body de la requête.
+
+---
+
+## 9. Ressources utiles
+- [Thunder Client (VS Code)](https://www.thunderclient.com/)
+- [Postman](https://www.postman.com/)
+- [Prisma Studio](https://www.prisma.io/studio) pour visualiser/modifier la base de données
+
+---
+
+**Contact :**
+Pour toute question, contactez le développeur du projet.
