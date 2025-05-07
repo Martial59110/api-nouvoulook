@@ -94,3 +94,14 @@ model ClothingExample {
 
   @@map("clothing_examples")
 }
+
+model PageView {
+  id        String   @id @default(uuid())
+  path      String
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("page_views")
+  @@index([createdAt])
+}

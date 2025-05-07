@@ -8,6 +8,7 @@ import { NewsModule } from './news/news.module';
 import { TextDonationsModule } from './text-donations/text-donations.module';
 import { TextVolunteersModule } from './text-volunteers/text-volunteers.module';
 import { ClothingExamplesModule } from './clothing-examples/clothing-examples.module';
+import { StatisticsModule } from './statistics/statistics.module';
 import { LoggerModule } from 'nestjs-pino';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
@@ -45,6 +46,7 @@ import { ConfigModule } from '@nestjs/config';
     TextDonationsModule,
     TextVolunteersModule,
     ClothingExamplesModule,
+    StatisticsModule,
   ],
   controllers: [AppController],
   providers: [
