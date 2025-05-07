@@ -176,6 +176,14 @@ exports.Prisma.ClothingExampleScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.PageViewScalarFieldEnum = {
+  id: 'id',
+  path: 'path',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -198,7 +206,8 @@ exports.Prisma.ModelName = {
   News: 'News',
   TextDonation: 'TextDonation',
   TextVolunteer: 'TextVolunteer',
-  ClothingExample: 'ClothingExample'
+  ClothingExample: 'ClothingExample',
+  PageView: 'PageView'
 };
 
 /**
