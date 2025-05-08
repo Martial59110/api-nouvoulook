@@ -13,7 +13,7 @@ export class PartnersController {
   constructor(private readonly partnersService: PartnersService) {}
 
   @Post()
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   create(@Body() createPartnerDto: CreatePartnerDto, @Req() req) {
     return this.partnersService.create(createPartnerDto, req.user.id);
   }
@@ -29,13 +29,13 @@ export class PartnersController {
   }
 
   @Patch(':id')
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   update(@Param('id') id: string, @Body() updatePartnerDto: UpdatePartnerDto) {
     return this.partnersService.update(id, updatePartnerDto);
   }
 
   @Delete(':id')
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   remove(@Param('id') id: string) {
     return this.partnersService.remove(id);
   }
