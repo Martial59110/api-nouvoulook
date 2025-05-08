@@ -16,10 +16,14 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { User } from './entities/user.entity';
 import { Roles } from '../decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
+import { AuthService } from '../auth/auth.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(
+    private readonly usersService: UsersService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post()
   @Roles(Role.ADMIN)
@@ -48,11 +52,16 @@ export class UsersController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @Roles(Role.ADMIN)
-  update(
+  async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<User> {
-    return this.usersService.update(id, updateUserDto);
+  ): Promise<any> {
+    const updatedUser = await this.usersService.update(id, updateUserDto);
+    const { user, ...tokens } = await this.authService.updateToken(id);
+    return {
+      updatedUser,
+      ...tokens
+    };
   }
 
   @UseGuards(JwtAuthGuard)
