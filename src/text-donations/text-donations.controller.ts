@@ -12,7 +12,7 @@ export class TextDonationsController {
   constructor(private readonly textDonationsService: TextDonationsService) {}
 
   @Post()
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   create(@Body() createTextDonationDto: CreateTextDonationDto, @Req() req) {
     return this.textDonationsService.create(createTextDonationDto, req.user.id);
   }
