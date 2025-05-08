@@ -6,6 +6,7 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { PinoLogger } from 'nestjs-pino';
 import { ConfigService } from '@nestjs/config';
+import { Role } from './enums/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -107,8 +108,44 @@ export class AuthService {
   }
 
   async register(registerDto: RegisterDto) {
-    this.logger.info('Registering new user');
-    const user = await this.usersService.create(registerDto);
+    this.logger.info('Registering new user', { email: registerDto.email, roles: registerDto.roles });
+    const user = await this.usersService.create({
+      ...registerDto,
+      roles: registerDto.roles || [Role.ADMIN]
+    });
+    
+    const payload = { 
+      email: user.email, 
+      sub: user.id,
+      roles: user.roles 
+    };
+
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+        expiresIn: '15m',
+      }),
+      this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+        expiresIn: '7d',
+      }),
+    ]);
+
+    return {
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        firstname: user.firstname,
+        lastname: user.lastname,
+        roles: user.roles,
+      },
+    };
+  }
+
+  async updateToken(userId: string) {
+    const user = await this.usersService.findOne(userId);
     const payload = { 
       email: user.email, 
       sub: user.id,
