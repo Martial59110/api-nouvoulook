@@ -12,7 +12,7 @@ export class ClothingExamplesController {
   constructor(private readonly clothingExamplesService: ClothingExamplesService) {}
 
   @Post()
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   create(@Body() createClothingExampleDto: CreateClothingExampleDto, @Req() req) {
     return this.clothingExamplesService.create(createClothingExampleDto, req.user.id);
   }
