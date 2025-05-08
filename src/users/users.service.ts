@@ -34,9 +34,11 @@ export class UsersService {
 
     const user = await this.prisma.user.create({
       data: {
-        ...createUserDto,
+        email: createUserDto.email,
         password: hashedPassword,
-        roles: [Role.ADMIN],
+        firstname: createUserDto.firstname,
+        lastname: createUserDto.lastname,
+        roles: createUserDto.roles || [Role.ADMIN],
       },
       include: {
         partner: true,
