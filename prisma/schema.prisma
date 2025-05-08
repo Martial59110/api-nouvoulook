@@ -105,3 +105,15 @@ model PageView {
   @@map("page_views")
   @@index([createdAt])
 }
+
+model Permissions {
+  id          String   @id @default(uuid())
+  role        String   // Le rôle concerné (admin, user, etc.)
+  resource    String   // La ressource concernée (news, partners, etc.)
+  action      String   // L'action autorisée (create, read, update, delete)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@unique([role, resource, action])
+  @@map("permissions")
+}
