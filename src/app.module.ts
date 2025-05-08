@@ -16,6 +16,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { ConfigModule } from '@nestjs/config';
     TextVolunteersModule,
     ClothingExamplesModule,
     StatisticsModule,
+    PermissionsModule,
   ],
   controllers: [AppController],
   providers: [
