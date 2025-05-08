@@ -193,7 +193,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/martial/Desktop/api-nouvoulook/src/prisma/generated",
+      "value": "/home/martial/Desktop/Simplon/api-nouvoulook/src/prisma/generated",
       "fromEnvVar": null
     },
     "config": {
@@ -207,7 +207,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/martial/Desktop/api-nouvoulook/prisma/schema.prisma",
+    "sourceFilePath": "/home/martial/Desktop/Simplon/api-nouvoulook/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -221,11 +221,12 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://admin:mdp@localhost:5432/nouvoulook"
+        "value": null
       }
     }
   },
