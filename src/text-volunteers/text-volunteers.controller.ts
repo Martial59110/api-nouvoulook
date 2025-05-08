@@ -13,7 +13,7 @@ export class TextVolunteersController {
   constructor(private readonly textVolunteersService: TextVolunteersService) {}
 
   @Post()
-  @Roles(Role.ADMIN)
+  @Roles(Role.ADMIN, Role.USER)
   create(
     @Body() createTextVolunteerDto: CreateTextVolunteerDto,
     @Request() req,
