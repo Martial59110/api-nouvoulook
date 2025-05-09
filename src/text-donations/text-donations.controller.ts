@@ -6,6 +6,8 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Roles } from '../decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
 import { Role } from '../auth/enums/role.enum';
+import { Public } from '../decorators/public.decorator';
+
 @Controller('text-donations')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class TextDonationsController {
@@ -18,6 +20,7 @@ export class TextDonationsController {
   }
 
   @Get()
+  @Public()
   findAll() {
     return this.textDonationsService.findAll();
   }
