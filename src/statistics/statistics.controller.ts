@@ -1,11 +1,13 @@
 import { Controller, Get, Post, Req } from '@nestjs/common';
 import { StatisticsService } from './statistics.service';
 import { Request } from 'express';
+import { Public } from '../auth/public.decorator';
 
 @Controller('statistics')
 export class StatisticsController {
   constructor(private readonly statisticsService: StatisticsService) {}
 
+  @Public()
   @Post('pageview')
   async recordPageView(@Req() req: Request) {
     const path = req.path;
