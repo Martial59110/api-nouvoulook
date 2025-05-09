@@ -11,6 +11,26 @@ export class StatisticsService {
   }
 
   async recordPageView(path: string, ipAddress?: string, userAgent?: string) {
+    // Vérifier si une visite existe déjà aujourd'hui pour cette IP et ce user-agent
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Utiliser une requête count au lieu de findFirst pour plus d'efficacité
+    const visitCount = await this.prisma.pageView.count({
+      where: {
+        ipAddress,
+        userAgent,
+        createdAt: {
+          gte: today,
+        },
+      },
+    });
+
+    if (visitCount > 0) {
+      return { message: 'Visite déjà enregistrée aujourd\'hui' };
+    }
+
+    // Si aucune visite n'existe, en créer une nouvelle
     return this.prisma.pageView.create({
       data: {
         path,
