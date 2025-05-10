@@ -17,6 +17,7 @@ import { RolesGuard } from './guards/roles.guard';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { PermissionsModule } from './permissions/permissions.module';
+import { PictosModule } from './pictos/pictos.module';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import { PermissionsModule } from './permissions/permissions.module';
     ClothingExamplesModule,
     StatisticsModule,
     PermissionsModule,
+    PictosModule,
   ],
   controllers: [AppController],
   providers: [
