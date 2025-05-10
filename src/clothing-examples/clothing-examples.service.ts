@@ -86,4 +86,12 @@ export class ClothingExamplesService {
     this.logger.info('Clothing example deleted successfully', { id });
     return deleted;
   }
+
+  async findMany(where: any): Promise<ClothingExample[]> {
+    this.logger.info('Fetching filtered clothing examples', { where });
+    return this.prisma.clothingExample.findMany({
+      where,
+      include: { user: true },
+    });
+  }
 } 
