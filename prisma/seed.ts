@@ -1,12 +1,39 @@
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+
+  const prisma = new PrismaClient();
+
+const pictos = [
+  '/assets/pictos/picto-accessoires.svg',
+  '/assets/pictos/picto-bigelectro.svg',
+  '/assets/pictos/picto-casse.svg',
+  '/assets/pictos/picto-deco.svg',
+  '/assets/pictos/picto-electro.svg',
+  '/assets/pictos/picto-informatique.svg',
+  '/assets/pictos/picto-jeux-casse.svg',
+  '/assets/pictos/picto-jeux.svg',
+  '/assets/pictos/picto-linge.svg',
+  '/assets/pictos/picto-livre.svg',
+  '/assets/pictos/picto-mobilier.svg',
+  '/assets/pictos/picto-securite.svg',
+  '/assets/pictos/picto-sport.svg',
+  '/assets/pictos/picto-tache.svg',
+  '/assets/pictos/picto-vetements.svg'
+];
 
 async function main() {
-  // Suppression des permissions existantes
+  // Seed des pictos
+  for (const url of pictos) {
+    await prisma.picto.upsert({
+      where: { url },
+      update: {},
+      create: { url }
+    });
+  }
+
+  // Seed des permissions
   await prisma.permissions.deleteMany();
 
-  // Permissions pour le rôle admin
   const adminPermissions = [
     { role: 'admin', resource: 'users', action: 'create' },
     { role: 'admin', resource: 'users', action: 'read' },
@@ -38,7 +65,6 @@ async function main() {
     { role: 'admin', resource: 'permissions', action: 'delete' },
   ];
 
-  // Permissions pour le rôle user
   const userPermissions = [
     { role: 'user', resource: 'news', action: 'read' },
     { role: 'user', resource: 'partners', action: 'read' },
@@ -50,18 +76,17 @@ async function main() {
     { role: 'user', resource: 'clothing-examples', action: 'read' },
   ];
 
-  // Création des permissions
   for (const permission of [...adminPermissions, ...userPermissions]) {
     await prisma.permissions.create({
       data: permission,
     });
   }
 
-  console.log('Permissions créées avec succès !');
+  console.log('Pictos et permissions créés avec succès !');
 }
 
 main()
-  .catch((e) => {
+  .catch(e => {
     console.error(e);
     process.exit(1);
   })
