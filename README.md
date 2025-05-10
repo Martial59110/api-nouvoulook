@@ -13,6 +13,41 @@
   npm run start:dev
   ```
 
+## Commandes de base de données
+
+### Migrations
+```bash
+# Créer une nouvelle migration
+npx prisma migrate dev --name <nom_de_la_migration>
+
+# Appliquer les migrations en production
+npx prisma migrate deploy
+
+# Réinitialiser la base de données (attention: supprime toutes les données)
+npx prisma migrate reset
+```
+
+### Seed
+```bash
+# Exécuter le seed de la base de données
+npx prisma db seed
+
+# Réinitialiser et seed la base de données
+npx prisma migrate reset --force
+```
+
+### Prisma Studio
+```bash
+# Ouvrir l'interface de gestion de la base de données
+npx prisma studio
+```
+
+### Génération du client Prisma
+```bash
+# Générer le client Prisma après modification du schema
+npx prisma generate
+```
+
 ---
 
 ## 1. Créer un utilisateur (Inscription)
