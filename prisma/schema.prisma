@@ -117,3 +117,9 @@ model Permissions {
   @@unique([role, resource, action])
   @@map("permissions")
 }
+
+model Picto {
+  id    Int    @id @default(autoincrement())
+  url   String @unique
+  // Ajoute d'autres champs si besoin (ex: nom, date, etc.)
+}
