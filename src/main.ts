@@ -3,6 +3,8 @@ import { AppModule } from './app.module';
 import { Logger } from 'nestjs-pino';
 import { ValidationPipe } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import * as express from 'express';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
@@ -13,6 +15,8 @@ async function bootstrap() {
     transform: true,
   }));
   const configService = app.get(ConfigService);
-  await app.listen(configService.get('PORT', 3000));
+  console.log('Static assets path:', join(process.cwd(), 'public', 'assets'));
+  app.use('/assets', express.static(join(process.cwd(), 'public', 'assets')));
+  await app.listen(configService.get('PORT', 3001));
 }
 bootstrap();
