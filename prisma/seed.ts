@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt';
 
 
   const prisma = new PrismaClient();
@@ -23,6 +24,20 @@ const pictos = [
 ];
 
 async function main() {
+  const hashedPassword = await bcrypt.hash('admin1234', 10);
+  let user = await prisma.user.findFirst();
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email: 'admin@nouvoulook.fr',
+        password: hashedPassword,
+        firstname: 'Admin',
+        lastname: 'Nouvoulook',
+        roles: ['admin']
+      }
+    });
+  }
+
   // Seed des pictos
   for (const url of pictos) {
     await prisma.picto.upsert({
@@ -88,7 +103,6 @@ async function main() {
   }
 
   // Seed des collectes (exemples de vêtements)
-  const user = await prisma.user.findFirst();
   if (!user) {
     throw new Error('Aucun utilisateur trouvé pour associer les collectes');
   }
