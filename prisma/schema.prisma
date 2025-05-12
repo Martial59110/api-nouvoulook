@@ -38,8 +38,8 @@ model Partner {
   imageUrl  String   @map("image_url")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  userId    String   @unique @map("user_id")
-  user      User     @relation(fields: [userId], references: [id])
+  userId    String?   @unique @map("user_id")
+  user      User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("partners")
 }
@@ -51,8 +51,8 @@ model News {
   imageUrl    String   @map("image_url")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  userId      String   @map("user_id")
-  user        User     @relation(fields: [userId], references: [id])
+  userId      String?   @map("user_id")
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("news")
 }
@@ -64,8 +64,8 @@ model TextDonation {
   imageUrl          String?  @map("image_url") 
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @updatedAt @map("updated_at")
-  userId            String   @map("user_id")
-  user              User     @relation(fields: [userId], references: [id])
+  userId            String?   @map("user_id")
+  user              User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("text_donations")
 }
@@ -76,8 +76,8 @@ model TextVolunteer {
   textContent String   @map("text_content")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  userId      String   @unique @map("user_id")
-  user        User     @relation(fields: [userId], references: [id])
+  userId      String?   @unique @map("user_id")
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("text_volunteers")
 }
@@ -90,8 +90,8 @@ model ClothingExample {
   accepted    Boolean  @default(false)
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
-  userId      String   @map("user_id")
-  user        User     @relation(fields: [userId], references: [id])
+  userId      String?   @map("user_id")
+  user        User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
 
   @@map("clothing_examples")
 }
