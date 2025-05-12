@@ -124,3 +124,15 @@ model Picto {
   url   String @unique
   // Ajoute d'autres champs si besoin (ex: nom, date, etc.)
 }
+
+model ContactInfo {
+  id          String   @id @default(uuid())
+  smtpUser    String   // Identifiant SMTP (utilisé pour Nodemailer)
+  smtpPass    String   // Mot de passe SMTP (utilisé pour Nodemailer)
+  publicEmail String   // Email affiché sur le site
+  phone       String   // Numéro affiché sur le site
+  address     String   // Adresse affichée sur le site
+  openingHours String?  // Horaires affichés sur le site
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
