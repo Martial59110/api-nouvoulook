@@ -4,6 +4,7 @@ export class TextDonation {
   id: string;
   messageSchedule: string;
   messageAdvertising: string;
+  imageUrl?: string;
   createdAt: Date;
   updatedAt: Date;
   userId: string;
