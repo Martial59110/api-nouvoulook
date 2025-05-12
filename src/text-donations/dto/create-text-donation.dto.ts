@@ -8,4 +8,7 @@ export class CreateTextDonationDto {
   @IsString()
   @IsNotEmpty()
   messageAdvertising: string;
+
+  @IsString()
+  imageUrl?: string;
 } 
