@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { PermissionsModule } from './permissions/permissions.module';
 import { PictosModule } from './pictos/pictos.module';
+import { ContactInfoModule } from './contact-info/contact-info.module';
 
 @Module({
   imports: [
@@ -51,6 +52,7 @@ import { PictosModule } from './pictos/pictos.module';
     StatisticsModule,
     PermissionsModule,
     PictosModule,
+    ContactInfoModule,
   ],
   controllers: [AppController],
   providers: [
