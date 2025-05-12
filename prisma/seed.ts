@@ -64,6 +64,9 @@ async function main() {
     { role: 'admin', resource: 'permissions', action: 'read' },
     { role: 'admin', resource: 'permissions', action: 'update' },
     { role: 'admin', resource: 'permissions', action: 'delete' },
+    { role: 'admin', resource: 'contact', action: 'read' },
+    { role: 'admin', resource: 'contact', action: 'update' },
+    { role: 'admin', resource: 'contact', action: 'delete' },
   ];
 
   const userPermissions = [
@@ -75,6 +78,7 @@ async function main() {
     { role: 'user', resource: 'text-volunteers', action: 'read' },
     { role: 'user', resource: 'clothing-examples', action: 'create' },
     { role: 'user', resource: 'clothing-examples', action: 'read' },
+    { role: 'user', resource: 'contact', action: 'read' },
   ];
 
   for (const permission of [...adminPermissions, ...userPermissions]) {
@@ -215,7 +219,20 @@ async function main() {
     }
   });
 
-  console.log('Pictos et permissions créés avec succès !');
+  // Seed du contact info
+  await prisma.contactInfo.deleteMany();
+  await prisma.contactInfo.create({
+    data: {
+      smtpUser: 'A_COMPLETER_ICI',
+      smtpPass: 'A_COMPLETER_ICI',
+      publicEmail: 'nouvoulook@outlook.fr',
+      phone: '03 28 07 66 52',
+      address: '65 Bd Clemenceau, 59700 Marcq-en-Barœul',
+      openingHours: 'Mardi au samedi : 14h - 18h\nFermé dimanche et lundi'
+    }
+  });
+
+  
 }
 
 main()
