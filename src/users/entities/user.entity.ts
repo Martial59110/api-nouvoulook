@@ -16,9 +16,9 @@ export class User {
   updatedAt: Date;
   
   // Relations
-  partner?: Partner | null;
-  news?: News[];
-  textDonations?: TextDonation[];
-  textVolunteer?: TextVolunteer | null;
-  clothingExamples?: ClothingExample[];
+  partner: Partner | null;
+  news: News[];
+  textDonations: TextDonation[];
+  textVolunteer: TextVolunteer | null;
+  clothingExamples: ClothingExample[];
 } 
