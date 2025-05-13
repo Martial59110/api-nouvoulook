@@ -7,6 +7,12 @@ export class TextDonation {
   imageUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
-  userId: string;
-  user?: User;
+  userId: string | null;
+  user: {
+    id: string;
+    email: string;
+    firstname: string | null;
+    lastname: string | null;
+    roles: string[];
+  } | null;
 } 
