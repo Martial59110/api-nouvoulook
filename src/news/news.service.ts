@@ -35,6 +35,7 @@ export class NewsService {
       include: {
         user: true,
       },
+      orderBy: { createdAt: 'desc' },
     });
     this.logger.info(`Found ${news.length} news`);
     return news;
