@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { TextVolunteer } from './entities/text-volunteer.entity';
 import { Roles } from '../decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
+import { Public } from 'src/auth/public.decorator';
 
 @Controller('text-volunteers')
 @UseGuards(JwtAuthGuard)
@@ -22,6 +23,7 @@ export class TextVolunteersController {
   }
 
   @Get()
+  @Public()
   findAll(): Promise<TextVolunteer[]> {
     return this.textVolunteersService.findAll();
   }
