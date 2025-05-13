@@ -1,8 +1,8 @@
-import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateTextVolunteerDto {
   @IsNotEmpty()
-  @IsUrl()
+  @IsString()
   imageUrl: string;
 
   @IsNotEmpty()
