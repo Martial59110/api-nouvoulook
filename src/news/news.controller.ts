@@ -6,7 +6,7 @@ import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 import { Roles } from '../decorators/roles.decorator';
 import { RolesGuard } from '../guards/roles.guard';
 import { Role } from '../auth/enums/role.enum';
-
+import { Public } from '../decorators/public.decorator';
 @Controller('news')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class NewsController {
@@ -19,6 +19,7 @@ export class NewsController {
   }
 
   @Get()
+  @Public()
   findAll() {
     return this.newsService.findAll();
   }
