@@ -8,12 +8,12 @@ export class ClothingExample {
   accepted: boolean;
   createdAt: Date;
   updatedAt: Date;
-  userId: string;
-  user?: {
+  userId: string | null;
+  user: {
     id: string;
     email: string;
     firstname: string | null;
     lastname: string | null;
     roles: string[];
-  };
+  } | null;
 } 
