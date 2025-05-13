@@ -20,7 +20,8 @@ const pictos = [
   '/assets/pictos/picto-sport.svg',
   '/assets/pictos/picto-tache.svg',
   '/assets/pictos/picto-vetements.svg',
-  '/assets/dons.jpg'
+  '/assets/dons.jpg',
+  '/assets/benevolat.jpg'
 ];
 
 async function main() {
@@ -232,6 +233,18 @@ async function main() {
       userId: user.id
     }
   });
+  await prisma.textVolunteer.deleteMany();
+  await prisma.textVolunteer.create({
+    data: {
+      imageUrl: '/assets/benevolat.jpg',
+      textContent: `<p class="p-4 rounded shadow-sm" style="background-color: #fce9f1; color: #111827; border-left: 6px solid #d946ef;">
+  <i class="bi bi-people-fill me-2 text-danger"></i>
+  Devenir bénévole chez <strong class="text-danger">Nouvoulook</strong>, c’est s’engager pour une <span class="fw-bold text-danger">consommation plus responsable</span> et une <span class="fw-bold text-danger">ville plus solidaire</span>. En rejoignant notre équipe, vous contribuez à <strong class="text-danger">revaloriser des dons</strong> (vêtements, meubles, jouets…) tout en créant du lien social dans une ambiance <strong class="text-danger">chaleureuse et inclusive</strong>. Que ce soit pour partager vos compétences, apprendre de nouvelles choses, ou simplement donner un peu de votre temps, chaque geste compte et a un véritable impact. Ensemble, faisons vivre un projet local, écologique et humain. <i class="bi bi-heart-fill text-danger ms-1"></i>
+</p>
+`,
+      userId: user.id
+    }
+  });
 
   // Seed du contact info
   await prisma.contactInfo.deleteMany();
@@ -243,6 +256,14 @@ async function main() {
       phone: '03 28 07 66 52',
       address: '65 Bd Clemenceau, 59700 Marcq-en-Barœul',
       openingHours: 'Mardi au samedi : 14h - 18h\nFermé dimanche et lundi'
+    }
+  });
+  await prisma.news.deleteMany();
+  await prisma.news.create({
+    data: {
+      title: 'Nous cherchons des bénévoles',
+      textContent: "🧺 1. Tri et valorisation des dons<br><br>Les bénévoles réceptionnent les vêtements, jouets, meubles et objets de décoration donnés par les particuliers ou les entreprises. Ils trient, nettoient et reconditionnent ces articles pour leur offrir une seconde vie, contribuant ainsi à une consommation plus responsable.<br><br>🛍️ 2. Accueil et conseil en boutique<br><br>En boutique, les bénévoles assurent l'accueil des clients, les conseillent et veillent à maintenir une ambiance chaleureuse et inclusive. Ils participent également à la mise en rayon et à l'encaissement, favorisant ainsi la mixité sociale et l'inclusion des personnes en difficulté.<br><br>✂️ 3. Animation d'ateliers de relooking et de customisation<br><br>Les bénévoles peuvent animer ou co-animer des ateliers mensuels de relooking et de customisation de vêtements, ouverts à tous. Ces ateliers permettent de partager des compétences en couture et en stylisme, tout en favorisant la créativité et le lien social.<br><br>📦 4. Logistique et gestion des stocks<br><br>En coulisses, les bénévoles participent à la gestion des stocks : réception des dons, tri, stockage et organisation des articles. Ils veillent à ce que les produits soient bien présentés en boutique et prêts à être vendus à des tarifs adaptés aux ressources des acheteurs. ",
+      imageUrl: '/assets/benevolat.jpg'
     }
   });
 
