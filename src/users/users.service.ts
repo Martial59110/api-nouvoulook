@@ -41,11 +41,31 @@ export class UsersService {
         roles: createUserDto.roles || [Role.ADMIN],
       },
       include: {
-        partner: true,
-        news: true,
-        textDonations: true,
-        textVolunteer: true,
-        clothingExamples: true,
+        partner: {
+          include: {
+            user: true
+          }
+        },
+        news: {
+          include: {
+            user: true
+          }
+        },
+        textDonations: {
+          include: {
+            user: true
+          }
+        },
+        textVolunteer: {
+          include: {
+            user: true
+          }
+        },
+        clothingExamples: {
+          include: {
+            user: true
+          }
+        }
       },
     });
 
@@ -57,11 +77,31 @@ export class UsersService {
     this.logger.info('Fetching all users');
     const users = await this.prisma.user.findMany({
       include: {
-        partner: true,
-        news: true,
-        textDonations: true,
-        textVolunteer: true,
-        clothingExamples: true,
+        partner: {
+          include: {
+            user: true
+          }
+        },
+        news: {
+          include: {
+            user: true
+          }
+        },
+        textDonations: {
+          include: {
+            user: true
+          }
+        },
+        textVolunteer: {
+          include: {
+            user: true
+          }
+        },
+        clothingExamples: {
+          include: {
+            user: true
+          }
+        }
       },
     });
     this.logger.info(`Found ${users.length} users`);
@@ -73,11 +113,31 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: { id },
       include: {
-        partner: true,
-        news: true,
-        textDonations: true,
-        textVolunteer: true,
-        clothingExamples: true,
+        partner: {
+          include: {
+            user: true
+          }
+        },
+        news: {
+          include: {
+            user: true
+          }
+        },
+        textDonations: {
+          include: {
+            user: true
+          }
+        },
+        textVolunteer: {
+          include: {
+            user: true
+          }
+        },
+        clothingExamples: {
+          include: {
+            user: true
+          }
+        }
       },
     });
 
@@ -95,11 +155,31 @@ export class UsersService {
     const user = await this.prisma.user.findUnique({
       where: { email },
       include: {
-        partner: true,
-        news: true,
-        textDonations: true,
-        textVolunteer: true,
-        clothingExamples: true,
+        partner: {
+          include: {
+            user: true
+          }
+        },
+        news: {
+          include: {
+            user: true
+          }
+        },
+        textDonations: {
+          include: {
+            user: true
+          }
+        },
+        textVolunteer: {
+          include: {
+            user: true
+          }
+        },
+        clothingExamples: {
+          include: {
+            user: true
+          }
+        }
       },
     });
     return user;
@@ -118,11 +198,31 @@ export class UsersService {
       where: { id },
       data: updateUserDto,
       include: {
-        partner: true,
-        news: true,
-        textDonations: true,
-        textVolunteer: true,
-        clothingExamples: true,
+        partner: {
+          include: {
+            user: true
+          }
+        },
+        news: {
+          include: {
+            user: true
+          }
+        },
+        textDonations: {
+          include: {
+            user: true
+          }
+        },
+        textVolunteer: {
+          include: {
+            user: true
+          }
+        },
+        clothingExamples: {
+          include: {
+            user: true
+          }
+        }
       },
     });
 
@@ -137,11 +237,31 @@ export class UsersService {
     const deleted = await this.prisma.user.delete({
       where: { id },
       include: {
-        partner: true,
-        news: true,
-        textDonations: true,
-        textVolunteer: true,
-        clothingExamples: true,
+        partner: {
+          include: {
+            user: true
+          }
+        },
+        news: {
+          include: {
+            user: true
+          }
+        },
+        textDonations: {
+          include: {
+            user: true
+          }
+        },
+        textVolunteer: {
+          include: {
+            user: true
+          }
+        },
+        clothingExamples: {
+          include: {
+            user: true
+          }
+        }
       },
     });
 
