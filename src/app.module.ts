@@ -19,6 +19,8 @@ import { ConfigModule } from '@nestjs/config';
 import { PermissionsModule } from './permissions/permissions.module';
 import { PictosModule } from './pictos/pictos.module';
 import { ContactInfoModule } from './contact-info/contact-info.module';
+import { HistoryModule } from './history/history.module';
+import { TimelineItemModule } from './timeline-item/timeline-item.module';
 
 @Module({
   imports: [
@@ -53,6 +55,8 @@ import { ContactInfoModule } from './contact-info/contact-info.module';
     PermissionsModule,
     PictosModule,
     ContactInfoModule,
+    HistoryModule,
+    TimelineItemModule,
   ],
   controllers: [AppController],
   providers: [
