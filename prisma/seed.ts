@@ -21,7 +21,8 @@ const pictos = [
   '/assets/pictos/picto-tache.svg',
   '/assets/pictos/picto-vetements.svg',
   '/assets/dons.jpg',
-  '/assets/benevolat.jpg'
+  '/assets/benevolat.jpg',
+  '/assets/histoire.jpg'
 ];
 
 async function main() {
@@ -239,7 +240,7 @@ async function main() {
       imageUrl: '/assets/benevolat.jpg',
       textContent: `<p class="p-4 rounded shadow-sm" style="background-color: #fce9f1; color: #111827; border-left: 6px solid #d946ef;">
   <i class="bi bi-people-fill me-2 text-danger"></i>
-  Devenir bénévole chez <strong class="text-danger">Nouvoulook</strong>, c’est s’engager pour une <span class="fw-bold text-danger">consommation plus responsable</span> et une <span class="fw-bold text-danger">ville plus solidaire</span>. En rejoignant notre équipe, vous contribuez à <strong class="text-danger">revaloriser des dons</strong> (vêtements, meubles, jouets…) tout en créant du lien social dans une ambiance <strong class="text-danger">chaleureuse et inclusive</strong>. Que ce soit pour partager vos compétences, apprendre de nouvelles choses, ou simplement donner un peu de votre temps, chaque geste compte et a un véritable impact. Ensemble, faisons vivre un projet local, écologique et humain. <i class="bi bi-heart-fill text-danger ms-1"></i>
+  Devenir bénévole chez <strong class="text-danger">Nouvoulook</strong>, c'est s'engager pour une <span class="fw-bold text-danger">consommation plus responsable</span> et une <span class="fw-bold text-danger">ville plus solidaire</span>. En rejoignant notre équipe, vous contribuez à <strong class="text-danger">revaloriser des dons</strong> (vêtements, meubles, jouets…) tout en créant du lien social dans une ambiance <strong class="text-danger">chaleureuse et inclusive</strong>. Que ce soit pour partager vos compétences, apprendre de nouvelles choses, ou simplement donner un peu de votre temps, chaque geste compte et a un véritable impact. Ensemble, faisons vivre un projet local, écologique et humain. <i class="text-danger ms-1"></i>
 </p>
 `,
       userId: user.id
@@ -267,7 +268,28 @@ async function main() {
     }
   });
 
-  
+await prisma.history.deleteMany();
+await prisma.history.createMany({
+  data: [
+    {
+      imageUrl: '/assets/histoire.jpg',
+      textContent: `En 2005, l’association Innovation & Développement lance le chantier d’insertion “Système D comme Déco” dans le quartier de la Briqueterie à Marcq-en-Barœul. Dix femmes y participent pour apprendre à rénover des meubles et aménager leur intérieur. Au-delà de l’aspect créatif, ce projet permet à certaines participantes de retrouver un emploi ou de s'engager dans une formation qualifiante. Cette initiative marque le début d’un projet plus ambitieux, impulsé par la ville de Marcq-en-Barœul : créer un lieu de vente solidaire pour prolonger la dynamique d’insertion et de lien social.`,
+      textContent2: `Le 7 avril 2009, la boutique solidaire Nouvoulook ouvre ses portes. Pensée comme un espace de partage et de rencontres, elle propose vêtements, services et produits accessibles aux plus démunis comme au grand public. Porteuse des valeurs d’inclusion et d’économie circulaire, Nouvoulook devient un pont entre les mondes : elle crée du lien entre les habitants, valorise les parcours d’insertion et redonne une seconde vie aux objets comme aux personnes.`,
+      textContent3: `En 2017, Nouvoulook rejoint le projet VISES, une initiative transfrontalière qui réunit 21 partenaires en France et en Belgique. L’objectif : évaluer l’impact social des entreprises solidaires. Pour l’équipe de Nouvoulook, cette démarche est naturelle. Évaluer, c’est progresser, ajuster et renforcer ce qui fonctionne. C’est aussi mettre en lumière le rôle essentiel de l’économie sociale dans la transformation positive des territoires.`,
+    }
+  ]
+});
+
+await prisma.timelineItem.deleteMany();
+await prisma.timelineItem.createMany({
+  data: [
+    { year: '2005', description: "Lancement d'un projet de boutique solidaire" },
+    { year: '2009', description: "Création de la boutique Nouvoulook" },
+    { year: '2011', description: "La boutique développe d'autres activités" },
+    { year: '2017', description: "Dépôt de dossier en tant qu'entreprise testeuse auprès de partenaires européens" },
+  ]
+});
+ 
 }
 
 main()
