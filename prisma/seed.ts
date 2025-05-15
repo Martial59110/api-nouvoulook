@@ -25,7 +25,12 @@ const pictos = [
   '/assets/histoire.jpg',
   '/assets/image1.jpg',
   '/assets/image2.jpg',
-  '/assets/image3.jpg'
+  '/assets/image3.jpg',
+  '/assets/concept1.png',
+  '/assets/concept2.jpg',
+  '/assets/cofidis.png',
+  '/assets/marcq-logo.png',
+  '/assets/cravate-solidaire.png'
 ];
 
 async function main() {
@@ -91,6 +96,10 @@ async function main() {
     { role: 'admin', resource: 'history', action: 'read' },
     { role: 'admin', resource: 'history', action: 'update' },
     { role: 'admin', resource: 'history', action: 'delete' },
+    { role: 'admin', resource: 'boutique', action: 'create' },
+    { role: 'admin', resource: 'boutique', action: 'read' },
+    { role: 'admin', resource: 'boutique', action: 'update' },
+    { role: 'admin', resource: 'boutique', action: 'delete' },
   ];
 
   const userPermissions = [
@@ -168,7 +177,7 @@ async function main() {
     },
     {
       name: 'Jeux',
-      description: 'Jeux et jouetscomplets et en bon état.',
+      description: 'Jeux et jouets complets et en bon état.',
       imageUrl: '/assets/pictos/picto-jeux.svg',
       accepted: true,
       userId: user.id,
@@ -299,7 +308,38 @@ await prisma.timelineItem.createMany({
     { year: '2017', description: "Dépôt de dossier en tant qu'entreprise testeuse auprès de partenaires européens" },
   ]
 });
- 
+
+await prisma.partner.deleteMany();
+await prisma.partner.createMany({
+  data: [
+    { name: 'Marcq', imageUrl: '/assets/marcq-logo.png' },
+    { name: 'Cravate Solidaire', imageUrl: '/assets/cravate-solidaire.png' },
+    { name: 'Cofidis', imageUrl: '/assets/cofidis.png' }
+  ]
+});
+
+// Seed de la boutique
+await prisma.boutique.deleteMany();
+await prisma.boutique.create({
+  data: {
+    imageUrl: '/assets/concept1.png',
+    image1: '/assets/concept2.jpg',
+    image2: '/assets/concept2.jpg',
+    image3: '/assets/concept2.jpg',
+    image4: '/assets/concept2.jpg',
+    image5: '/assets/concept2.jpg',
+    image6: '/assets/concept2.jpg',
+    image7: '/assets/concept2.jpg',
+    image8: '/assets/concept2.jpg',
+    image9: '/assets/concept2.jpg',
+    image10: '/assets/concept2.jpg',
+    image11: '/assets/concept2.jpg',
+    image12: '/assets/concept2.jpg',
+    image13: '/assets/concept2.jpg',
+    image14: '/assets/concept2.jpg'
+   
+  }
+});
 }
 
 main()
