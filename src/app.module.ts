@@ -21,6 +21,7 @@ import { PictosModule } from './pictos/pictos.module';
 import { ContactInfoModule } from './contact-info/contact-info.module';
 import { HistoryModule } from './history/history.module';
 import { TimelineItemModule } from './timeline-item/timeline-item.module';
+import { BoutiqueModule } from './boutique/boutique.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { TimelineItemModule } from './timeline-item/timeline-item.module';
     ContactInfoModule,
     HistoryModule,
     TimelineItemModule,
+    BoutiqueModule,
   ],
   controllers: [AppController],
   providers: [
