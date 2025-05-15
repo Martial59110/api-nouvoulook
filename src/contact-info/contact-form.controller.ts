@@ -50,17 +50,17 @@ export class ContactFormController {
     `;
 
     try {
+      this.logger.info('Tentative d\'envoi du mail', { to: contact.smtpUser, sujet: body.sujet });
       await transporter.sendMail({
         from: contact.smtpUser,
         to: contact.smtpUser,
         subject: body.sujet || 'Nouveau message du site Nouvoulook',
         html
       });
-
       this.logger.info('Email envoyé avec succès', { type: body.type });
       return { message: 'Message envoyé avec succès !' };
     } catch (error) {
-      this.logger.error('Erreur lors de l\'envoi de l\'email', error);
+      this.logger.error(`Erreur lors de l'envoi de l'email: ${error?.message || error}`, { stack: error?.stack, ...error });
       throw new BadRequestException('Erreur lors de l\'envoi de l\'email. Veuillez réessayer plus tard.');
     }
   }
