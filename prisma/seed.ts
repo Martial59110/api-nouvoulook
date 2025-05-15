@@ -22,7 +22,10 @@ const pictos = [
   '/assets/pictos/picto-vetements.svg',
   '/assets/dons.jpg',
   '/assets/benevolat.jpg',
-  '/assets/histoire.jpg'
+  '/assets/histoire.jpg',
+  '/assets/image1.jpg',
+  '/assets/image2.jpg',
+  '/assets/image3.jpg'
 ];
 
 async function main() {
@@ -84,6 +87,10 @@ async function main() {
     { role: 'admin', resource: 'contact', action: 'read' },
     { role: 'admin', resource: 'contact', action: 'update' },
     { role: 'admin', resource: 'contact', action: 'delete' },
+    { role: 'admin', resource: 'history', action: 'create' },
+    { role: 'admin', resource: 'history', action: 'read' },
+    { role: 'admin', resource: 'history', action: 'update' },
+    { role: 'admin', resource: 'history', action: 'delete' },
   ];
 
   const userPermissions = [
@@ -272,10 +279,13 @@ await prisma.history.deleteMany();
 await prisma.history.createMany({
   data: [
     {
+      image1: '/assets/image1.jpg',
+      image2: '/assets/image2.jpg',
+      image3: '/assets/image3.jpg',
       imageUrl: '/assets/histoire.jpg',
-      textContent: `En 2005, l’association Innovation & Développement lance le chantier d’insertion “Système D comme Déco” dans le quartier de la Briqueterie à Marcq-en-Barœul. Dix femmes y participent pour apprendre à rénover des meubles et aménager leur intérieur. Au-delà de l’aspect créatif, ce projet permet à certaines participantes de retrouver un emploi ou de s'engager dans une formation qualifiante. Cette initiative marque le début d’un projet plus ambitieux, impulsé par la ville de Marcq-en-Barœul : créer un lieu de vente solidaire pour prolonger la dynamique d’insertion et de lien social.`,
-      textContent2: `Le 7 avril 2009, la boutique solidaire Nouvoulook ouvre ses portes. Pensée comme un espace de partage et de rencontres, elle propose vêtements, services et produits accessibles aux plus démunis comme au grand public. Porteuse des valeurs d’inclusion et d’économie circulaire, Nouvoulook devient un pont entre les mondes : elle crée du lien entre les habitants, valorise les parcours d’insertion et redonne une seconde vie aux objets comme aux personnes.`,
-      textContent3: `En 2017, Nouvoulook rejoint le projet VISES, une initiative transfrontalière qui réunit 21 partenaires en France et en Belgique. L’objectif : évaluer l’impact social des entreprises solidaires. Pour l’équipe de Nouvoulook, cette démarche est naturelle. Évaluer, c’est progresser, ajuster et renforcer ce qui fonctionne. C’est aussi mettre en lumière le rôle essentiel de l’économie sociale dans la transformation positive des territoires.`,
+      textContent: `En 2005, l'association Innovation & Développement lance le chantier d'insertion "Système D comme Déco" dans le quartier de la Briqueterie à Marcq-en-Barœul. Dix femmes y participent pour apprendre à rénover des meubles et aménager leur intérieur. Au-delà de l'aspect créatif, ce projet permet à certaines participantes de retrouver un emploi ou de s'engager dans une formation qualifiante. Cette initiative marque le début d'un projet plus ambitieux, impulsé par la ville de Marcq-en-Barœul : créer un lieu de vente solidaire pour prolonger la dynamique d'insertion et de lien social.`,
+      textContent2: `Le 7 avril 2009, la boutique solidaire Nouvoulook ouvre ses portes. Pensée comme un espace de partage et de rencontres, elle propose vêtements, services et produits accessibles aux plus démunis comme au grand public. Porteuse des valeurs d'inclusion et d'économie circulaire, Nouvoulook devient un pont entre les mondes : elle crée du lien entre les habitants, valorise les parcours d'insertion et redonne une seconde vie aux objets comme aux personnes.`,
+      textContent3: `En 2017, Nouvoulook rejoint le projet VISES, une initiative transfrontalière qui réunit 21 partenaires en France et en Belgique. L'objectif : évaluer l'impact social des entreprises solidaires. Pour l'équipe de Nouvoulook, cette démarche est naturelle. Évaluer, c'est progresser, ajuster et renforcer ce qui fonctionne. C'est aussi mettre en lumière le rôle essentiel de l'économie sociale dans la transformation positive des territoires.`,
     }
   ]
 });
