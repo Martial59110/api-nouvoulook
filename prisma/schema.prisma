@@ -139,10 +139,13 @@ model ContactInfo {
 
 model History {
   id            String         @id @default(uuid())
-  imageUrl      String         @map("image_url")
-  textContent   String         @map("text_content")
-  textContent2  String         @map("text_content2")
-  textContent3  String         @map("text_content3")
+  imageUrl      String?
+  image1        String?
+  image2        String?
+  image3        String?
+  textContent   String?
+  textContent2  String?
+  textContent3  String?
   createdAt     DateTime       @default(now()) @map("created_at")
   updatedAt     DateTime       @updatedAt @map("updated_at")
   
