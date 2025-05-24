@@ -6,4 +6,5 @@ export class Boutique {
   image3?: string | null;
   createdAt: Date;
   updatedAt: Date;
+  flyerPdfUrl?: string | null;
 } 
