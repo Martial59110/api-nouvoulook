@@ -17,6 +17,7 @@ import { User } from './entities/user.entity';
 import { Roles } from '../decorators/roles.decorator';
 import { Role } from '../auth/enums/role.enum';
 import { AuthService } from '../auth/auth.service';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -47,6 +48,12 @@ export class UsersController {
   @Get(':id')
   findOne(@Param('id') id: string): Promise<User> {
     return this.usersService.findOne(id);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Patch('password')
+  async changePassword(@Body() dto: ChangePasswordDto, @Request() req) {
+    return this.usersService.changePassword(req.user.id, dto);
   }
 
   @UseGuards(JwtAuthGuard)
