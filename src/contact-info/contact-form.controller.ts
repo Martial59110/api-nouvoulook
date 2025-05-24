@@ -3,12 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import * as nodemailer from 'nodemailer';
 import { Public } from 'src/decorators/public.decorator';
 import { PinoLogger } from 'nestjs-pino';
+import { ConfigService } from '@nestjs/config';
 
 @Controller()
 export class ContactFormController {
   constructor(
     private prisma: PrismaService,
-    private readonly logger: PinoLogger
+    private readonly logger: PinoLogger,
+    private readonly configService: ConfigService
   ) {
     logger.setContext('ContactFormController');
   }
@@ -24,12 +26,10 @@ export class ContactFormController {
       throw new BadRequestException('Configuration SMTP non disponible. Veuillez contacter l\'administrateur.');
     }
 
-
-  
     const transporter = nodemailer.createTransport({
-      host: 'smtp.office365.com',
-      port: 587,
-      secure: false,
+      host: this.configService.get('SMTP_HOST') ?? '',
+      port: parseInt(this.configService.get('SMTP_PORT') ?? '587', 10),
+      secure: (this.configService.get('SMTP_SECURE') ?? 'false') === 'true',
       auth: {
         user: contact.smtpUser,
         pass: contact.smtpPass
