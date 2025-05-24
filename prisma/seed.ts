@@ -244,9 +244,10 @@ async function main() {
   await prisma.textDonation.deleteMany();
   await prisma.textDonation.create({
     data: {
-      messageSchedule: "Nouvoulook vous accueille du mardi au vendredi matin de 9h à 12h ! Ainsi que le samedi après midi de 14h à 17h.\nFermé les dimanches et les lundis.",
+      messageSchedule: "Nouvoulook vous accueille pour les dons du mardi au vendredi matin de 9h à 12h ! Ainsi que le samedi après midi de 14h à 17h.\nFermé les dimanches et les lundis.\nLa boutique en elle même est ouverte du mardi au samedi de 14h à 18h.",
       messageAdvertising: "Nous vous remercions chaleureusement pour votre <span class='dons-highlight'>générosité</span>.<br>Chaque don compte et contribue à aider ceux qui en ont <span class='dons-highlight'>besoin</span>.<br>Cependant, nous vous rappelons que nous ne sommes pas une <span class='dons-highlight'>décharge</span>.<br>Merci de ne donner que des vêtements <span class='dons-highlight'>propres</span>, en <span class='dons-highlight'>bon état</span>, et dignes d'être portés.<br> Nous nous réservons la possibilité de refuser ce qui est abîmé, incomplet, tâché, déchiré.<br>Car nous ne pouvons ni laver, ni réparer.",
       imageUrl: '/assets/dons.jpg',
+      flyerPdfUrl: '/assets/flyer.pdf',
       userId: user.id
     }
   });
@@ -259,6 +260,7 @@ async function main() {
   Devenir bénévole chez <strong class="text-danger">Nouvoulook</strong>, c'est s'engager pour une <span class="fw-bold text-danger">consommation plus responsable</span> et une <span class="fw-bold text-danger">ville plus solidaire</span>. En rejoignant notre équipe, vous contribuez à <strong class="text-danger">revaloriser des dons</strong> (vêtements, meubles, jouets…) tout en créant du lien social dans une ambiance <strong class="text-danger">chaleureuse et inclusive</strong>. Que ce soit pour partager vos compétences, apprendre de nouvelles choses, ou simplement donner un peu de votre temps, chaque geste compte et a un véritable impact. Ensemble, faisons vivre un projet local, écologique et humain. <i class="text-danger ms-1"></i>
 </p>
 `,
+      flyerPdfUrl: '/assets/volunteer-flyer-1747927818508.pdf',
       userId: user.id
     }
   });
@@ -272,7 +274,7 @@ async function main() {
       publicEmail: 'nouvoulook@outlook.fr',
       phone: '03 28 07 66 52',
       address: '65 Bd Clemenceau, 59700 Marcq-en-Barœul',
-      openingHours: 'Mardi au samedi : 14h - 18h\nFermé dimanche et lundi'
+      openingHours: 'Mardi au samedi : 14h - 18h.\nFermé dimanche et lundi'
     }
   });
   await prisma.news.deleteMany();
