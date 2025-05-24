@@ -11,4 +11,7 @@ export class CreateTextDonationDto {
 
   @IsString()
   imageUrl?: string;
+
+  @IsString()
+  flyerPdfUrl?: string;
 } 
