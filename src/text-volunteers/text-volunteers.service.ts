@@ -30,6 +30,7 @@ export class TextVolunteersService {
     const volunteer = await this.prisma.textVolunteer.create({
       data: {
         ...createTextVolunteerDto,
+        flyerPdfUrl: createTextVolunteerDto.flyerPdfUrl,
         userId,
       },
       include: {
@@ -76,7 +77,10 @@ export class TextVolunteersService {
 
     const updated = await this.prisma.textVolunteer.update({
       where: { id },
-      data: updateTextVolunteerDto,
+      data: {
+        ...updateTextVolunteerDto,
+        flyerPdfUrl: updateTextVolunteerDto.flyerPdfUrl,
+      },
       include: {
         user: true,
       },
