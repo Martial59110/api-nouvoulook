@@ -14,4 +14,5 @@ export class TextVolunteer {
     lastname: string | null;
     roles: string[];
   } | null;
+  flyerPdfUrl?: string | null;
 } 
