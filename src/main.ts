@@ -9,7 +9,10 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { bufferLogs: true });
   app.useLogger(app.get(Logger));
-  app.enableCors();
+  app.enableCors({
+    origin: true,
+    credentials: true,
+  });
   
   // Ajout du middleware pour logger le corps de la requête
   app.use(express.json({ limit: '50mb' }));
