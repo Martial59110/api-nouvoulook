@@ -17,7 +17,10 @@ export class BoutiqueService {
   async create(dto: CreateBoutiqueDto): Promise<Boutique> {
     this.logger.info('Creating new boutique', { ...dto });
     const boutique = await this.prisma.boutique.create({
-      data: dto,
+      data: {
+        ...dto,
+        flyerPdfUrl: dto.flyerPdfUrl,
+      },
     });
     this.logger.info('Boutique created successfully', { id: boutique.id });
     return boutique;
@@ -48,7 +51,10 @@ export class BoutiqueService {
     await this.findOne(id);
     const updated = await this.prisma.boutique.update({
       where: { id },
-      data: dto,
+      data: {
+        ...dto,
+        flyerPdfUrl: dto.flyerPdfUrl,
+      },
     });
     this.logger.info('Boutique updated successfully', { id });
     return updated;
