@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString, IsOptional } from 'class-validator';
 
 export class CreateTextVolunteerDto {
   @IsNotEmpty()
@@ -8,4 +8,8 @@ export class CreateTextVolunteerDto {
   @IsNotEmpty()
   @IsString()
   textContent: string;
+
+  @IsString()
+  @IsOptional()
+  flyerPdfUrl?: string;
 } 
