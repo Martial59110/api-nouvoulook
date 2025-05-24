@@ -59,9 +59,10 @@ model News {
 
 model TextDonation {
   id                String   @id @default(uuid())
-  messageSchedule   String   @map("message_schedule")
-  messageAdvertising String  @map("message_advertising")
+  messageSchedule   String   @map("message_schedule") @db.Text
+  messageAdvertising String  @map("message_advertising") @db.Text
   imageUrl          String?  @map("image_url") 
+  flyerPdfUrl        String?  @map("flyer_pdf_url")
   createdAt         DateTime @default(now()) @map("created_at")
   updatedAt         DateTime @updatedAt @map("updated_at")
   userId            String?   @map("user_id")
@@ -74,6 +75,7 @@ model TextVolunteer {
   id          String   @id @default(uuid())
   imageUrl    String   @map("image_url")
   textContent String   @map("text_content")
+  flyerPdfUrl String?  @map("flyer_pdf_url")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
   userId      String?   @unique @map("user_id")
@@ -180,6 +182,7 @@ model Boutique {
   image12   String?
   image13   String?
   image14   String?
+  flyerPdfUrl String? @map("flyer_pdf_url")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
