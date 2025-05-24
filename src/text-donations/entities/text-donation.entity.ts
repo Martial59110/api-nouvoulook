@@ -5,6 +5,7 @@ export class TextDonation {
   messageSchedule: string;
   messageAdvertising: string;
   imageUrl: string | null;
+  flyerPdfUrl: string | null;
   createdAt: Date;
   updatedAt: Date;
   userId: string | null;
