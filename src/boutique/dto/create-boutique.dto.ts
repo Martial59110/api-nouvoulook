@@ -15,4 +15,8 @@ export class CreateBoutiqueDto {
   @IsString()
   @IsOptional()
   image3?: string;
+
+  @IsString()
+  @IsOptional()
+  flyerPdfUrl?: string;
 } 
