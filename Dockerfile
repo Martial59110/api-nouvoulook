@@ -28,6 +28,8 @@ RUN npm run build
 RUN --mount=type=cache,target=/root/.npm \
     npm ci --production
 
+RUN mkdir -p /app/public/assets && chmod -R 777 /app/public/assets
+
 ###############################
 # Production stage
 FROM node:${NODE_VERSION}-slim AS final
