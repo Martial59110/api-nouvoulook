@@ -6,6 +6,7 @@ import { User } from './entities/user.entity';
 import { PinoLogger } from 'nestjs-pino';
 import * as bcrypt from 'bcrypt';
 import { Role } from '../auth/enums/role.enum';
+import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -267,5 +268,29 @@ export class UsersService {
 
     this.logger.info('User deleted successfully', { id });
     return deleted;
+  }
+
+  async changePassword(userId: string, dto: ChangePasswordDto) {
+    const user = await this.findOne(userId);
+    const isMatch = await bcrypt.compare(dto.currentPassword, user.password);
+    if (!isMatch) {
+      throw new Error('Mot de passe actuel incorrect');
+    }
+    const hashed = await bcrypt.hash(dto.newPassword, 10);
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashed }
+    });
+    return { message: 'Mot de passe modifié avec succès' };
+  }
+
+  async resetPassword(userId: string, newPassword: string) {
+    const hashed = await bcrypt.hash(newPassword, 10);
+    await this.prisma.user.update({
+      where: { id: userId },
+      data: { password: hashed }
+    });
+    this.logger.info('Mot de passe réinitialisé pour', { userId });
+    return { message: 'Mot de passe réinitialisé avec succès' };
   }
 } 
